@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogPersonal</title>
+</head>
+<body>
+
+    <nav>
+        <a href="/">BlogPersonal</a>
+
+        @auth
+            <a href="/dashboard">Dashboard</a>
+            <form action="/logout" method="POST" style="display:inline">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
+        @endauth
+
+        @guest
+            <a href="/login">Login</a>
+        @endguest
+    </nav>
+
+    <main>
+        @yield('content')
+    </main>
+
+</body>
+</html>
