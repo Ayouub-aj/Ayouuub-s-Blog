@@ -30,16 +30,16 @@
 | ✅ | T-04 | Lancer et vérifier l'environnement Docker | `DOCKER` | High | 0.5h | **Action:**<br>- `docker-compose up -d --build`<br>- Vérifier `docker-compose ps` — tous les services `Up`<br>- Accès `http://localhost` → page Laravel par défaut |
 | ✅ | T-05 | Créer le projet Laravel dans le container | `ARCH` | High | 0.5h | **Action:**<br>- `docker-compose exec app composer create-project laravel/laravel .`<br>- Vérifier `http://localhost` → Laravel welcome page |
 | ✅ | T-06 | Configurer `.env` (DB via Docker) | `ARCH` | High | 0.3h | **Files to Edit:**<br>- `.env`: `DB_HOST=db`, `DB_DATABASE=blog`, `DB_USERNAME=root`, `DB_PASSWORD=secret`<br>- `APP_NAME=BlogPersonal`, `APP_URL=http://localhost` |
-| [ ] | T-07 | Migration — Table `categories` | `ARCH` | High | 0.5h | **Files to Create:**<br>- `database/migrations/..._create_categories_table.php`: Colonnes `id`, `name`, `timestamps`<br>- `docker-compose exec app php artisan make:migration create_categories_table` |
-| [ ] | T-08 | Migration — Table `articles` | `ARCH` | High | 1h | **Files to Create:**<br>- `database/migrations/..._create_articles_table.php`: Colonnes `id`, `title`, `content`, `status` (draft/published), `category_id` (FK), `user_id` (FK), `timestamps`<br>- `docker-compose exec app php artisan make:migration create_articles_table` |
-| [ ] | T-09 | Model `Category` + Model `Article` | `ARCH` | High | 1h | **Files to Create:**<br>- `app/Models/Category.php`: `$fillable = ['name']`, relation `hasMany(Article::class)`<br>- `app/Models/Article.php`: `$fillable = ['title','content','status','category_id','user_id']`, `belongsTo(Category::class)`, `belongsTo(User::class)` |
-| [ ] | T-10 | Seeders complets | `ARCH` | High | 1.5h | **Files to Create:**<br>- `database/seeders/CategorySeeder.php`: 4 catégories (Laravel, PHP, DevOps, Tips)<br>- `database/seeders/UserSeeder.php`: 1 blogger (email + `Hash::make('password')`)<br>- `database/seeders/ArticleSeeder.php`: 6 articles mix draft/published<br>- `database/seeders/DatabaseSeeder.php`: Appeler les 3 seeders<br>- `docker-compose exec app php artisan migrate:fresh --seed` doit passer ✅ |
+| ✅ | T-07 | Migration — Table `categories` | `ARCH` | High | 0.5h | **Files to Create:**<br>- `database/migrations/..._create_categories_table.php`: Colonnes `id`, `name`, `timestamps`<br>- `docker-compose exec app php artisan make:migration create_categories_table` |
+| ✅ | T-08 | Migration — Table `articles` | `ARCH` | High | 1h | **Files to Create:**<br>- `database/migrations/..._create_articles_table.php`: Colonnes `id`, `title`, `content`, `status` (draft/published), `category_id` (FK), `user_id` (FK), `timestamps`<br>- `docker-compose exec app php artisan make:migration create_articles_table` |
+| ✅ | T-09 | Model `Category` + Model `Article` | `ARCH` | High | 1h | **Files to Create:**<br>- `app/Models/Category.php`: `$fillable = ['name']`, relation `hasMany(Article::class)`<br>- `app/Models/Article.php`: `$fillable = ['title','content','status','category_id','user_id']`, `belongsTo(Category::class)`, `belongsTo(User::class)` |
+| ✅ | T-10 | Seeders complets | `ARCH` | High | 1.5h | **Files to Create:**<br>- `database/seeders/CategorySeeder.php`: 4 catégories (Laravel, PHP, DevOps, Tips)<br>- `database/seeders/UserSeeder.php`: 1 blogger (email + `Hash::make('password')`)<br>- `database/seeders/ArticleSeeder.php`: 6 articles mix draft/published<br>- `database/seeders/DatabaseSeeder.php`: Appeler les 3 seeders<br>- `docker-compose exec app php artisan migrate:fresh --seed` doit passer ✅ |
 
 **Sprint 1 — Definition of Done:**
-- [ ] `docker-compose up -d` démarre tous les services sans erreur
-- [ ] `http://localhost` affiche la page Laravel
-- [ ] `docker-compose exec app php artisan migrate:fresh --seed` fonctionne
-- [ ] Base de données visible dans phpMyAdmin (`http://localhost:8080`)
+- ✅ `docker-compose up -d` démarre tous les services sans erreur
+- ✅ `http://localhost` affiche la page Laravel
+- ✅ `docker-compose exec app php artisan migrate:fresh --seed` fonctionne
+- ✅ Base de données visible dans phpMyAdmin (`http://localhost:8080`)
 
 ---
 
