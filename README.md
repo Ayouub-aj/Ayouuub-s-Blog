@@ -88,20 +88,26 @@ classDiagram
 ```
 
 ### 🔄 Routing Flow
-
 ```mermaid
 flowchart TD
     URL([Requête HTTP]) --> Router{routes/web.php}
     Router --> Public[Routes publiques]
     Router --> Auth{Middleware auth}
 
-    Public --> AC[ArticleController@index\nGET /]
-    Public --> AS[ArticleController@show\nGET /articles/:id]
-    Public --> CC[CategoryController@show\nGET /categories/:id]
+    Public --> AC["ArticleController@index
+    GET /"]
+    Public --> AS["ArticleController@show
+    GET /articles/:id"]
+    Public --> CC["CategoryController@show
+    GET /categories/:id"]
 
-    Auth --> LC[LoginController\nGET+POST /login\nPOST /logout]
-    Auth --> DC[DashboardController@index\nGET /dashboard]
-    Auth --> CRUD[ArticleController\nCREATE · STORE · EDIT · UPDATE · DESTROY]
+    Auth --> LC["LoginController
+    GET+POST /login
+    POST /logout"]
+    Auth --> DC["DashboardController@index
+    GET /dashboard"]
+    Auth --> CRUD["ArticleController
+    CREATE · STORE · EDIT · UPDATE · DESTROY"]
 
     CRUD --> Model[Eloquent Model]
     Model --> DB[(MySQL)]
