@@ -167,7 +167,7 @@ BlogPersonal/
 
 2. **Copier le fichier d'environnement** :
    ```bash
-   cp src/.env.example src/.env
+   cp .env.example .env
    ```
 
 3. **Lancer Docker** :
@@ -181,8 +181,8 @@ BlogPersonal/
    ```
 
 5. **Accéder à l'application** :
-   - Blog public : [http://127.0.0.1:8080](http://127.0.0.1:8080)
-   - phpMyAdmin : [http://127.0.0.1:8081/](http://127.0.0.1:8081/)
+   - Blog public : [http://localhost](http://localhost)
+   - phpMyAdmin : [http://localhost:8080](http://localhost:8080)
 
 ---
 
@@ -203,7 +203,7 @@ BlogPersonal/
 | GET | `/articles/{article}` | `articles.show` | `ArticleController@show` | |
 | GET | `/categories/{category}` | `categories.show` | `CategoryController@show` | |
 | GET | `/login` | `login` | `LoginController@showLoginForm` | |
-| POST | `/login` | — | `LoginController@login` | |
+| POST | `/login` | `login.submit` | `LoginController@login` | |
 | POST | `/logout` | `logout` | `LoginController@logout` | |
 | GET | `/dashboard` | `dashboard.index` | `DashboardController@index` | ✅ |
 | GET | `/articles/create` | `articles.create` | `ArticleController@create` | ✅ |
@@ -212,7 +212,7 @@ BlogPersonal/
 | PUT | `/articles/{article}` | `articles.update` | `ArticleController@update` | ✅ |
 | DELETE | `/articles/{article}` | `articles.destroy` | `ArticleController@destroy` | ✅ |
 
-> Vérifier toutes les routes avec : `docker-compose exec app php artisan route:list`
+> Vérifier toutes les routes avec : `php artisan route:list`
 
 ---
 

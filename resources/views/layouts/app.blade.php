@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlogPersonal</title>
+    <title>@yield('title', 'BlogPersonal')</title>
     <style>
         * {
             margin: 0;
@@ -13,22 +13,24 @@
 
         body {
             font-family: 'Segoe UI', sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            background: #f3f6fb;
+            color: #1f2937;
+            line-height: 1.6;
         }
 
         nav {
-            background: #1a1a2e;
+            background: #0f172a;
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #1e293b;
         }
 
         nav a.brand {
-            color: #e94560;
+            color: #f8fafc;
             font-size: 1.4rem;
-            font-weight: bold;
+            font-weight: 700;
             text-decoration: none;
         }
 
@@ -39,29 +41,279 @@
         }
 
         nav .nav-links a {
-            color: #ccc;
+            color: #cbd5e1;
             text-decoration: none;
             font-size: 0.95rem;
+            padding: 0.35rem 0.6rem;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
         }
 
         nav .nav-links a:hover {
             color: white;
+            background: #1e293b;
         }
 
         nav .nav-links button {
-            background: #e94560;
+            background: #ef4444;
             color: white;
             border: none;
-            padding: 0.4rem 1rem;
-            border-radius: 4px;
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1040px;
             margin: 2rem auto;
-            padding: 0 1rem;
+            padding: 0 1.25rem;
+        }
+
+        .page-header {
+            margin-bottom: 1.25rem;
+        }
+
+        .page-title {
+            font-size: 1.9rem;
+            margin-bottom: 0.35rem;
+            color: #0f172a;
+        }
+
+        .muted {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.1rem;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+        }
+
+        .btn,
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 0.5rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: #334155;
+            border-color: #cbd5e1;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .btn-link {
+            color: #2563eb;
+            padding: 0;
+            border: none;
+            background: none;
+        }
+
+        .form-card {
+            max-width: 720px;
+        }
+
+        .form-group {
+            margin-bottom: 0.95rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 0.65rem 0.75rem;
+            font-size: 0.95rem;
+            background: #fff;
+            color: #0f172a;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 2px solid #bfdbfe;
+            border-color: #60a5fa;
+        }
+
+        .error-text {
+            color: #b91c1c;
+            font-size: 0.86rem;
+            margin-top: 0.35rem;
+        }
+
+        .alert {
+            border-radius: 10px;
+            padding: 0.75rem 0.9rem;
+            margin-bottom: 1rem;
+            border: 1px solid;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            color: #166534;
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .alert-danger {
+            color: #991b1b;
+            background: #fef2f2;
+            border-color: #fecaca;
+        }
+
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table th,
+        .table td {
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            vertical-align: middle;
+        }
+
+        .table th {
+            color: #334155;
+            background: #f8fafc;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-block;
+            border-radius: 999px;
+            padding: 0.2rem 0.65rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: capitalize;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #334155;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .inline-form {
+            display: inline;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #64748b;
+            padding: 2rem 1rem;
+        }
+
+        .pagination-wrap nav {
+            margin-top: 1rem;
+        }
+
+        .custom-pagination {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            align-items: center;
+        }
+
+        .page-btn {
+            min-width: 38px;
+            text-align: center;
+            border-radius: 8px;
+            padding: 0.45rem 0.65rem;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .page-number {
+            background: #ffffff;
+            color: #1e293b;
+        }
+
+        .page-number:hover,
+        .page-nav:hover {
+            background: #dbeafe;
+            border-color: #60a5fa;
+            color: #1d4ed8;
+        }
+
+        .page-active {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+            color: #ffffff;
+        }
+
+        .page-nav {
+            background: #ecfeff;
+            border-color: #67e8f9;
+            color: #155e75;
+        }
+
+        .page-disabled {
+            background: #f1f5f9;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .page-ellipsis {
+            color: #64748b;
+            padding: 0 0.2rem;
         }
 
         @yield('styles')
@@ -70,19 +322,31 @@
 <body>
 
     <nav>
-        <a href="/" class="brand">BlogPersonal</a>
+        <a href="{{ route('articles.index') }}" class="brand">BlogPersonal</a>
 
         <div class="nav-links">
             @auth
-                <a href="/dashboard">Dashboard</a>
-                <form action="/logout" method="POST" style="display:inline">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form>
+                @if (Route::has('dashboard.index'))
+                    <a href="{{ route('dashboard.index') }}">Dashboard</a>
+                @endif
+                @if (Route::has('manage.categories.index'))
+                    <a href="{{ route('manage.categories.index') }}">Categories</a>
+                @endif
+                @if (Route::has('manage.users.index'))
+                    <a href="{{ route('manage.users.index') }}">Users</a>
+                @endif
+                @if (Route::has('logout'))
+                    <form action="{{ route('logout') }}" method="POST" style="display:inline">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                @endif
             @endauth
 
             @guest
-                <a href="/login">Login</a>
+                @if (Route::has('login'))
+                    <a href="{{ route('login') }}">Login</a>
+                @endif
             @endguest
         </div>
     </nav>

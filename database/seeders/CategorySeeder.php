@@ -12,7 +12,20 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = ['Laravel', 'PHP', 'DevOps', 'Tips', 'Security', 'Web Development', 'Linux'];
+        $categories = [
+            'Laravel',
+            'PHP',
+            'DevOps',
+            'Tips',
+            'Security',
+            'Web Development',
+            'Linux',
+            'Databases',
+            'Testing',
+            'Cloud',
+            'Architecture',
+            'Career',
+        ];
 
         foreach ($categories as $name) {
             \App\Models\Category::create(['name' => $name]);
