@@ -2,16 +2,91 @@
 
 @section('title', 'Dashboard')
 
+@section('styles')
+    .dashboard-hero {
+        margin-bottom: 1rem;
+    }
+
+    .dashboard-panel {
+        border-radius: 14px;
+        padding: 1.3rem;
+        color: #fff;
+        background: linear-gradient(140deg, #0f172a, #1d4ed8);
+        box-shadow: 0 16px 30px rgba(30, 64, 175, 0.22);
+    }
+
+    .dashboard-panel h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .dashboard-panel p {
+        color: #dbeafe;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-card {
+        background: #ffffff;
+        border: 1px solid #dbeafe;
+        border-radius: 12px;
+        padding: 0.9rem;
+    }
+
+    .stat-label {
+        color: #64748b;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .stat-value {
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    @media (max-width: 900px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+@endsection
+
 @section('content')
-    <div class="page-header">
-        <h1 class="page-title">Dashboard</h1>
-        <p class="muted">Manage your posts, categories, and users in one place.</p>
+    <div class="dashboard-hero">
+        <div class="dashboard-panel">
+            <h1>Dashboard</h1>
+            <p>Manage your content pipeline: create, refine, publish, and keep your blog organized.</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <p class="stat-label">Total Articles</p>
+            <p class="stat-value">{{ $articles->count() }}</p>
+        </div>
+        <div class="stat-card">
+            <p class="stat-label">Published</p>
+            <p class="stat-value">{{ $articles->where('status', 'published')->count() }}</p>
+        </div>
+        <div class="stat-card">
+            <p class="stat-label">Drafts</p>
+            <p class="stat-value">{{ $articles->where('status', 'draft')->count() }}</p>
+        </div>
     </div>
 
     <div class="toolbar">
         <a class="btn btn-primary" href="{{ route('articles.create') }}">Create new article</a>
         <a class="btn btn-secondary" href="{{ route('manage.categories.index') }}">Manage categories</a>
-        <a class="btn btn-secondary" href="{{ route('manage.users.index') }}">Manage users</a>
+        @if (auth()->user()?->email === 'blogger@blog.com')
+            <a class="btn btn-secondary" href="{{ route('manage.users.index') }}">Manage users</a>
+        @endif
     </div>
 
     @if (session('status'))

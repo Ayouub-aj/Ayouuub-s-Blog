@@ -1,6 +1,29 @@
 @extends('layouts.app')
 
 @section('styles')
+    .articles-hero {
+        margin-bottom: 1rem;
+    }
+
+    .hero-panel {
+        border-radius: 14px;
+        margin-bottom: 1rem;
+        padding: 1.4rem;
+        background: linear-gradient(140deg, #1d4ed8, #7c3aed);
+        color: #fff;
+        box-shadow: 0 16px 30px rgba(37, 99, 235, 0.25);
+    }
+
+    .hero-panel h1 {
+        font-size: 1.9rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .hero-panel p {
+        color: #dbeafe;
+        max-width: 52ch;
+    }
+
     .category-filters {
         display: flex;
         gap: 0.55rem;
@@ -36,7 +59,7 @@
         background: #fff;
         border: 1px solid #e2e8f0;
         border-radius: 12px;
-        padding: 1.5rem;
+        overflow: hidden;
         box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
         transition: transform 0.2s, box-shadow 0.2s;
     }
@@ -44,6 +67,10 @@
     .article-card:hover {
         transform: translateY(-3px);
         box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    .article-content {
+        padding: 1.2rem 1.25rem 1.3rem;
     }
 
     .article-card .meta {
@@ -87,12 +114,15 @@
         font-size: 0.9rem;
         font-weight: 600;
     }
+
 @endsection
 
 @section('content')
-    <div class="page-header">
-        <h1 class="page-title">Latest Articles</h1>
-        <p class="muted">Discover published posts and browse by category.</p>
+    <div class="articles-hero">
+        <div class="hero-panel">
+            <h1>Latest Articles</h1>
+            <p>Discover fresh stories, tutorials, and practical developer notes curated across categories.</p>
+        </div>
     </div>
 
     <div class="category-filters">
@@ -110,13 +140,15 @@
     <div class="articles-grid">
         @forelse ($articles as $article)
             <div class="article-card">
-                <div class="meta">
-                    <span>{{ $article->category->name }}</span>
-                    {{ $article->created_at->format('d M Y') }}
+                <div class="article-content">
+                    <div class="meta">
+                        <span>{{ $article->category->name }}</span>
+                        {{ $article->created_at->format('d M Y') }}
+                    </div>
+                    <h2><a href="{{ route('articles.show', $article) }}">{{ $article->title }}</a></h2>
+                    <p>{{ Str::limit($article->content, 150) }}</p>
+                    <a href="{{ route('articles.show', $article) }}" class="read-more">Read more →</a>
                 </div>
-                <h2><a href="{{ route('articles.show', $article) }}">{{ $article->title }}</a></h2>
-                <p>{{ Str::limit($article->content, 150) }}</p>
-                <a href="{{ route('articles.show', $article) }}" class="read-more">Read more →</a>
             </div>
         @empty
             <div class="empty-state">

@@ -9,8 +9,17 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    private const ADMIN_EMAIL = 'blogger@blog.com';
+
+    private function authorizeAdmin(): void
+    {
+        abort_unless(Auth::check() && Auth::user()->email === self::ADMIN_EMAIL, 403);
+    }
+
     public function index()
     {
+        $this->authorizeAdmin();
+
         $users = User::withCount('articles')->orderBy('name')->get();
 
         return view('users.index', compact('users'));
@@ -18,11 +27,15 @@ class UserController extends Controller
 
     public function create()
     {
+        $this->authorizeAdmin();
+
         return view('users.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorizeAdmin();
+
         $validated = $request->validate([
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
@@ -37,11 +50,15 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorizeAdmin();
+
         return view('users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
+        $this->authorizeAdmin();
+
         $validated = $request->validate([
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
@@ -61,6 +78,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorizeAdmin();
+
         if (Auth::id() === $user->id) {
             return back()->withErrors(['user' => 'You cannot delete your own account while logged in.']);
         }
